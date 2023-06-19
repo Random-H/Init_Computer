@@ -13,7 +13,7 @@ int HMD_RegCreateKey(char *path,char *name,char *data)
     int b = RegCreateKeyEx(HKEY_CLASSES_ROOT, data_Set, 0, NULL, 0, KEY_WOW64_64KEY | KEY_ALL_ACCESS, NULL, &hKEY, &dwDisposition);
     int a= RegSetValueEx(hKEY,name,0,REG_SZ,(BYTE *)data,sizeof(data));//ÐÞ¸ÄÄ¬ÈÏÖµ
     RegCloseKey(hKEY);
-    if(a&&b)
+    if(!a&&!b)
         return 1;
     else
         return 0;
@@ -38,15 +38,21 @@ int HMD_DeleteKey(char *path,char *name)
 
 int HMD_CreateCMD()
 {
-    HMD_RegCreateKey("Directory\\Background\\shell\\cmd_","","Cmd");
-    HMD_RegCreateKey("Directory\\Background\\shell\\cmd_","Icon","cmd.exe");
-    HMD_RegCreateKey("Directory\\Background\\shell\\cmd_\\command","","cmd.exe");
+    int a = HMD_RegCreateKey("Directory\\Background\\shell\\cmd_","","Cmd");
+    int b = HMD_RegCreateKey("Directory\\Background\\shell\\cmd_","Icon","cmd.exe");
+    int c = HMD_RegCreateKey("Directory\\Background\\shell\\cmd_\\command","","cmd.exe");
+    if(a&&b&&c)
+        return 1;
+    return 0; 
 }
 
 int HMD_DeleteCMD()
 {
-    HMD_DeleteKey("Directory\\Background\\shell\\cmd_","command");
-    HMD_DeleteKey("Directory\\Background\\shell","cmd_");
+    int a = HMD_DeleteKey("Directory\\Background\\shell\\cmd_","command");
+    int b = HMD_DeleteKey("Directory\\Background\\shell","cmd_");
+    if(a&&b)
+        return 1;
+    return 0; 
 }
 
 
