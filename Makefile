@@ -9,7 +9,7 @@ OBJ = $(patsubst $(DIR_SRC)%.cpp,$(DIR_OBJ)%.o,$(SRC))
 
 Del = del
 
-Target = $(DIR_BUILD)/main
+Target = $(DIR_BUILD)/HMD
 
 
 all: createDir $(Target)
