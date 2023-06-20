@@ -19,7 +19,7 @@ void meihua()
     GetConsoleScreenBufferInfoEx(hConsole, &csbInfo);
     csbInfo.ColorTable[0] = RGB(61, 89, 171); 
     SetConsoleScreenBufferInfoEx(hConsole, &csbInfo);;
-    SMALL_RECT windowSize = {0, 0, 60, 24}; // 80x25
+    SMALL_RECT windowSize = {0, 0, 34, 29}; // 80x25
     SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
 }
 
