@@ -8,18 +8,20 @@
 using namespace std;
 std::vector<std::string> splitString(const std::string& str, char delim);
 void ShutDown();
+void shell();
 void meihua()
 {
+
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     //SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-    
+
     CONSOLE_SCREEN_BUFFER_INFOEX csbInfo;
 
     csbInfo.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
     GetConsoleScreenBufferInfoEx(hConsole, &csbInfo);
-    csbInfo.ColorTable[0] = RGB(61, 89, 171); 
+    csbInfo.ColorTable[0] = RGB(61, 89, 171);
     SetConsoleScreenBufferInfoEx(hConsole, &csbInfo);;
-    SMALL_RECT windowSize = {0, 0, 34, 29}; // 80x25
+    SMALL_RECT windowSize = {0, 0, 80, 30}; // 80x25
     SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
 }
 
@@ -39,7 +41,11 @@ int main()
         cout<<"+-------------------------------+"<<endl;
         cout<<"|   3.创建.c和.h文件            |"<<endl;
         cout<<"+-------------------------------+"<<endl;
-        cout<<"|   4.退出                      |"<<endl;
+        cout<<"|   4.TCP、UDP调试程序          |"<<endl;
+        cout<<"+-------------------------------+"<<endl;
+        cout<<"|   5.常用指令                  |"<<endl;
+        cout<<"+-------------------------------+"<<endl;
+        cout<<"|   6.退出                      |"<<endl;
         cout<<"+-------------------------------+"<<endl;
         ch = _getch();
         switch (ch)
@@ -50,11 +56,14 @@ int main()
         case '2':
             ShutDown();
             _getch();
-           break;  
+           break;
         case '3':
             break;
         case '4':
             exit(0);
+            break;
+        case '5':
+            shell();
             break;
         default:
         getchar();
@@ -129,7 +138,7 @@ void ShutDown()
         time_flag = 0;
     }
     case '6':
-        break; 
+        break;
     default:
         time_flag = 0;
         break;
@@ -137,9 +146,35 @@ void ShutDown()
     if(time_flag)
     {
         string cmd = "shutdown -s -t "+time;
-        system(cmd.c_str()); 
+        system(cmd.c_str());
     }
     time = "";
     time_ = 0;
     cout<<"任意键继续...";
+}
+
+void shell()
+{
+    char ch;
+    string cmd;
+    cout<<"+-------------+"<<endl;
+    cout<<"|  1.查看IP   |"<<endl;
+    cout<<"|  2.检查网络 |"<<endl;
+    cout<<"|  3.时   |"<<endl;
+    cout<<"|  4.混合 |"<<endl;
+    cout<<"|  5.取消 |"<<endl;
+    cout<<"+---------+"<<endl;
+    ch = _getch();
+    switch (ch)
+    {
+        case '1':
+        cmd = "ipconfig/all";
+        system(cmd.c_str());
+        break;
+        case '2':
+        cmd = "ping www.baidu.com";
+        system(cmd.c_str());
+        break;
+    }
+    _getch();
 }
